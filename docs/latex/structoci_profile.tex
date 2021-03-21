@@ -1,0 +1,71 @@
+\hypertarget{structoci_profile}{}\doxysection{oci\+Profile Struct Reference}
+\label{structoci_profile}\index{ociProfile@{ociProfile}}
+
+
+Contains the OCIDs and key \& key related data necessary to sign the request.  
+
+
+
+
+{\ttfamily \#include $<$oci.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structoci_profile_a3e7ec8df686fc7a1236044fcdba1a24f}\label{structoci_profile_a3e7ec8df686fc7a1236044fcdba1a24f}} 
+\mbox{\hyperlink{structoci_profile_a3e7ec8df686fc7a1236044fcdba1a24f}{oci\+Profile}} ()
+\begin{DoxyCompactList}\small\item\em Construct an instance of Oci\+Profile. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structoci_profile_ac9c4c5ac232aaca8e4096f009d03c7c5}{oci\+Profile}} (char $\ast$\mbox{\hyperlink{structoci_profile_a6966fb23f3a294eadb0cffab83efb8dc}{tenancy\+Ocid}}, char $\ast$\mbox{\hyperlink{structoci_profile_adbfce480f1f9c4adee0d5bbbc2343baf}{user\+Ocid}}, char $\ast$\mbox{\hyperlink{structoci_profile_aba09bf31d5bd8709ea0ba77cf2ec2b4d}{key\+Fingerprint}}, char $\ast$\mbox{\hyperlink{structoci_profile_a4652dc35148fd939d97458be8e160122}{private\+Key}}, char $\ast$\mbox{\hyperlink{structoci_profile_a25f4fcc3aa1bed57f8a3272274c99de6}{private\+Key\+Passphrase}}=NULL)
+\begin{DoxyCompactList}\small\item\em Construct an instance of Oci\+Profile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structoci_profile_a6966fb23f3a294eadb0cffab83efb8dc}\label{structoci_profile_a6966fb23f3a294eadb0cffab83efb8dc}} 
+char $\ast$ \mbox{\hyperlink{structoci_profile_a6966fb23f3a294eadb0cffab83efb8dc}{tenancy\+Ocid}}
+\begin{DoxyCompactList}\small\item\em The tenancy OCID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_profile_adbfce480f1f9c4adee0d5bbbc2343baf}\label{structoci_profile_adbfce480f1f9c4adee0d5bbbc2343baf}} 
+char $\ast$ \mbox{\hyperlink{structoci_profile_adbfce480f1f9c4adee0d5bbbc2343baf}{user\+Ocid}}
+\begin{DoxyCompactList}\small\item\em The user OCID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_profile_aba09bf31d5bd8709ea0ba77cf2ec2b4d}\label{structoci_profile_aba09bf31d5bd8709ea0ba77cf2ec2b4d}} 
+char $\ast$ \mbox{\hyperlink{structoci_profile_aba09bf31d5bd8709ea0ba77cf2ec2b4d}{key\+Fingerprint}}
+\begin{DoxyCompactList}\small\item\em The key fingerprint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_profile_a4652dc35148fd939d97458be8e160122}\label{structoci_profile_a4652dc35148fd939d97458be8e160122}} 
+char $\ast$ \mbox{\hyperlink{structoci_profile_a4652dc35148fd939d97458be8e160122}{private\+Key}}
+\begin{DoxyCompactList}\small\item\em The private key text. must be null terminated! (have a newline at the end of the text) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_profile_a25f4fcc3aa1bed57f8a3272274c99de6}\label{structoci_profile_a25f4fcc3aa1bed57f8a3272274c99de6}} 
+char $\ast$ \mbox{\hyperlink{structoci_profile_a25f4fcc3aa1bed57f8a3272274c99de6}{private\+Key\+Passphrase}}
+\begin{DoxyCompactList}\small\item\em Optional -\/ the private key password (for protected keys) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the OCIDs and key \& key related data necessary to sign the request. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structoci_profile_ac9c4c5ac232aaca8e4096f009d03c7c5}\label{structoci_profile_ac9c4c5ac232aaca8e4096f009d03c7c5}} 
+\index{ociProfile@{ociProfile}!ociProfile@{ociProfile}}
+\index{ociProfile@{ociProfile}!ociProfile@{ociProfile}}
+\doxysubsubsection{\texorpdfstring{ociProfile()}{ociProfile()}}
+{\footnotesize\ttfamily oci\+Profile\+::oci\+Profile (\begin{DoxyParamCaption}\item[{char $\ast$}]{tenancy\+Ocid,  }\item[{char $\ast$}]{user\+Ocid,  }\item[{char $\ast$}]{key\+Fingerprint,  }\item[{char $\ast$}]{private\+Key,  }\item[{char $\ast$}]{private\+Key\+Passphrase = {\ttfamily NULL} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct an instance of Oci\+Profile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tenancy\+Ocid} & The tenancy OCID \\
+\hline
+{\em user\+Ocid} & The user OCID \\
+\hline
+{\em key\+Fingerprint} & The key fingerprint \\
+\hline
+{\em private\+Key} & The private key text. must be null terminated! (have a newline at the end of the text) \\
+\hline
+{\em private\+Key\+Passphrase} & Optional -\/ the private key password (for protected keys) \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/oci.\+h\end{DoxyCompactItemize}

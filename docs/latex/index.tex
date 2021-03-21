@@ -1,0 +1,169 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ The purpose of this library is to let you invoke Oracle Cloud Infrastructure (OCI) REST APIs directly from your device.\hypertarget{index_autotoc_md1}{}\doxysection{Before You Use This...}\label{index_autotoc_md1}
+You should be familiar with the OCI REST APIs\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm}{\texttt{ Using REST APIs}}
+\item \href{https://docs.oracle.com/en-us/iaas/api/\#/}{\texttt{ REST API Endpoints}}
+\end{DoxyItemize}
+
+You should have already created the required keys and collected the necessary OCIDs. See \href{https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm\#Required_Keys_and_OCIDs}{\texttt{ Required Keys and OCIDs}}.\hypertarget{index_autotoc_md2}{}\doxysection{About}\label{index_autotoc_md2}
+This library exists to make it easier to make calls to the OCI APIs from your microcontroller. The \href{https://docs.oracle.com/en-us/iaas/Content/API/Concepts/signingrequests.htm}{\texttt{ request signature}} process is somewhat complex, and it can be tricky to sign an HTTPS request from a memory constrained device. I created this library to simplify the process.
+
+{\bfseries{Please note!}} This library has only been successfully tested on an ESP-\/32. It has not been tested on any other board, and probably won\textquotesingle{}t work on any other board due to memory constraints and dependent libraries.\hypertarget{index_autotoc_md3}{}\doxysection{Documentation}\label{index_autotoc_md3}
+\hypertarget{index_autotoc_md4}{}\doxysection{Usage}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md5}{}\doxysubsection{Include the Library}\label{index_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include "{}oci.h"{}}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md6}{}\doxysubsection{Declare Variables for Keys and OCIDs}\label{index_autotoc_md6}
+Declare some variables to hold your keys and OCIDs. Keep this {\bfseries{out of source control}}!
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{char tenancyOcid[] = "{}ocid1.tenancy.oc1..[redacted]]"{};}
+\DoxyCodeLine{char userOcid[] = "{}ocid1.user.oc1..[redacted]"{};}
+\DoxyCodeLine{char keyFingerprint[] = "{}1z:[redacted]:99"{};}
+\DoxyCodeLine{char* apiKey = \(\backslash\)}
+\DoxyCodeLine{"{}-\/-\/-\/-\/-\/BEGIN RSA PRIVATE KEY-\/-\/-\/-\/-\/\(\backslash\)n"{}\(\backslash\)}
+\DoxyCodeLine{"{}MI[redacted]4h\(\backslash\)n"{}\(\backslash\)}
+\DoxyCodeLine{...}
+\DoxyCodeLine{"{}Q0[redacted]PGj\(\backslash\)n"{}\(\backslash\)}
+\DoxyCodeLine{"{}-\/-\/-\/-\/-\/END RSA PRIVATE KEY-\/-\/-\/-\/-\/\(\backslash\)n"{};}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md7}{}\doxysubsection{Construct OCI Profile}\label{index_autotoc_md7}
+Pass in your {\ttfamily tenancy\+Ocid}, {\ttfamily user\+Ocid}, {\ttfamily key\+Fingerprint}, {\ttfamily api\+Key}. If your private key is password protected, pass the password in as the 5th argument.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{OciProfile ociProfile(tenancyOcid, userOcid, keyFingerprint, apiKey);}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{Construct OCI Instance}\label{index_autotoc_md8}
+Construct an instance of the {\ttfamily \mbox{\hyperlink{class_oci}{Oci}}} class, passing in your profile. This will initialize the API class and configure the NTP server needed to obtain a timestamp to include with each request.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Oci oci(ociProfile);}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md9}{}\doxysubsection{Request Object}\label{index_autotoc_md9}
+Construct a request object. Pass in the REST endpoint host, the path, HTTP method as the first 3 arguments.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{OciApiRequest listBucketsRequest(osHost, osPath, oci.HTTP\_METHOD\_GET, \{\}, 0,  objectStorageRootCert);}
+
+\end{DoxyCode}
+
+
+The example above makes a secure request because a copy of the endpoint\textquotesingle{}s Root CA Cert is passed in as the final argument. You can get a copy of the Root CA Cert many ways. Here\textquotesingle{}s an example using {\ttfamily openssl} on $\ast$nix compatible systems\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ openssl s\_client -\/connect objectstorage.us-\/phoenix-\/1.oraclecloud.com:443 -\/showcerts}
+
+\end{DoxyCode}
+
+
+If you want to make the request insecure (the Root CA Cert will not be validated), pass {\ttfamily NULL} in instead of the cert.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{OciApiRequest listBucketsRequest(osHost, osPath, oci.HTTP\_METHOD\_GET, \{\}, 0,  NULL);}
+
+\end{DoxyCode}
+
+
+If you want/need to add request headers to the API call, construct and pass an array of {\ttfamily Header} structs in argument 4 and the length of that array in argument 5.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/* headers to add to the request */}
+\DoxyCodeLine{Header reqHeaders[] = \{ \{"{}opc-\/client-\/request-\/id"{}, "{}1234-\/ABCD"{}\} \};}
+\DoxyCodeLine{OciApiRequest listBucketsRequest(osHost, osPath, oci.HTTP\_METHOD\_GET, reqHeaders, 1, objectStorageRootCert);}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md10}{}\doxysubsection{Response Object}\label{index_autotoc_md10}
+Construct a response object. This will ultimately hold the results (or any errors) of your API call.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{OciApiResponse listBucketsResponse;}
+
+\end{DoxyCode}
+
+
+If you want/need to retrieve any headers from the API response, construct and add an array of {\ttfamily Header} structs. Just add the name of the header to retrieve, the value will be populated when the API call is complete.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/* headers to retrieve from the result (name only) */}
+\DoxyCodeLine{Header resHeaders[] = \{ \{"{}opc-\/request-\/id"{}\} \};}
+\DoxyCodeLine{OciApiResponse listBucketsResponse(resHeaders, 1);}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md11}{}\doxysubsection{Call API}\label{index_autotoc_md11}
+Call the {\ttfamily api\+Call()} method of {\ttfamily \mbox{\hyperlink{class_oci}{Oci}}}, passing the request and response objects.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{oci.apiCall(listBucketsRequest, listBucketsResponse);}
+
+\end{DoxyCode}
+
+
+If successful, the {\ttfamily status\+Code} property of the response object will be populated with {\ttfamily 200}. You can then print/handle the result as needed. In this example, I\textquotesingle{}m deserializing the JSON string into an object.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{if( listBucketsResponse.statusCode == 200 ) \{}
+\DoxyCodeLine{    // print the `opc-\/request-\/id` from the response headers}
+\DoxyCodeLine{    Serial.println(resHeaders[0].headerValue);}
+\DoxyCodeLine{    // deserialize and pretty print the response}
+\DoxyCodeLine{    Serial.println("{}List Buckets Response:"{});}
+\DoxyCodeLine{    DynamicJsonDocument doc(6000);}
+\DoxyCodeLine{    deserializeJson(doc, listBucketsResponse.response);}
+\DoxyCodeLine{    serializeJsonPretty(doc, Serial);  }
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  else \{}
+\DoxyCodeLine{    Serial.println(listBucketsResponse.errorMsg);}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+
+
+The previous example might produce output such as this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    "{}namespace"{}: "{}toddrsharp"{},}
+\DoxyCodeLine{    "{}name"{}: "{}archive-\/demo"{},}
+\DoxyCodeLine{    "{}compartmentId"{}: "{}ocid1.compartment.oc1..."{},}
+\DoxyCodeLine{    "{}createdBy"{}: "{}ocid1.saml2idp.oc1.../..."{},}
+\DoxyCodeLine{    "{}timeCreated"{}: "{}2020-\/06-\/18T17:49:14.490Z"{},}
+\DoxyCodeLine{    "{}etag"{}: "{}11e0fffe-\/280c-\/4311-\/8d72-\/755805766815"{},}
+\DoxyCodeLine{    "{}freeformTags"{}: null,}
+\DoxyCodeLine{    "{}definedTags"{}: null}
+\DoxyCodeLine{  \},}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    "{}namespace"{}: "{}toddrsharp"{},}
+\DoxyCodeLine{    "{}name"{}: "{}custom-\/images"{},}
+\DoxyCodeLine{    "{}compartmentId"{}: "{}ocid1.compartment.oc1..."{},}
+\DoxyCodeLine{    "{}createdBy"{}: "{}ocid1.saml2idp.oc1.../..."{},}
+\DoxyCodeLine{    "{}timeCreated"{}: "{}2019-\/10-\/24T17:52:47.425Z"{},}
+\DoxyCodeLine{    "{}etag"{}: "{}00c17467-\/2ac3-\/4257-\/aef0-\/a619aa4cab2b"{},}
+\DoxyCodeLine{    "{}freeformTags"{}: null,}
+\DoxyCodeLine{    "{}definedTags"{}: null}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{]}
+
+\end{DoxyCode}
+ 
