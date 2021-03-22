@@ -1,0 +1,83 @@
+\hypertarget{structoci_api_request}{}\doxysection{oci\+Api\+Request Struct Reference}
+\label{structoci_api_request}\index{ociApiRequest@{ociApiRequest}}
+
+
+A request contains all of the information required to make a call to the OCI API.  
+
+
+
+
+{\ttfamily \#include $<$oci.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structoci_api_request_a8de207237699592718d16272eafbb699}{oci\+Api\+Request}} (char $\ast$\mbox{\hyperlink{structoci_api_request_a9eba2f324a78303c128322b1c319545c}{host}}, char $\ast$\mbox{\hyperlink{structoci_api_request_acd7e286e96bf2ff72c4f34410d989833}{path}}, const char $\ast$\mbox{\hyperlink{structoci_api_request_a8055c26f7f9ae5a6a21eb72315364b1d}{request\+Method}}, \mbox{\hyperlink{structheader}{Header}} $\ast$\mbox{\hyperlink{structoci_api_request_a88652c45be18974ac4c4030590d1826a}{request\+Headers}}=\{\}, int \mbox{\hyperlink{structoci_api_request_aa4d816f382d78f80e786954aad5ea4b8}{request\+Header\+Count}}=0, char $\ast$\mbox{\hyperlink{structoci_api_request_aa6e2078739b660e07570b5c940631afd}{endpoint\+Cert}}=NULL, char $\ast$\mbox{\hyperlink{structoci_api_request_aa19f950be32e7910bd095dffef39960a}{content}}=NULL, char $\ast$\mbox{\hyperlink{structoci_api_request_a97cbaa9c9401bb62f4aaeb2681e49d9d}{content\+Type}}=\char`\"{}application/json\char`\"{})
+\begin{DoxyCompactList}\small\item\em An OCI API request. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structoci_api_request_a9eba2f324a78303c128322b1c319545c}\label{structoci_api_request_a9eba2f324a78303c128322b1c319545c}} 
+char $\ast$ \mbox{\hyperlink{structoci_api_request_a9eba2f324a78303c128322b1c319545c}{host}}
+\begin{DoxyCompactList}\small\item\em The REST API endpoint host. Ex\+: objectstorage.\+us-\/phoenix-\/1.\+oraclecloud.\+com. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_acd7e286e96bf2ff72c4f34410d989833}\label{structoci_api_request_acd7e286e96bf2ff72c4f34410d989833}} 
+char $\ast$ \mbox{\hyperlink{structoci_api_request_acd7e286e96bf2ff72c4f34410d989833}{path}}
+\begin{DoxyCompactList}\small\item\em The path. Ex\+: \char`\"{}/n/\char`\"{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_a8055c26f7f9ae5a6a21eb72315364b1d}\label{structoci_api_request_a8055c26f7f9ae5a6a21eb72315364b1d}} 
+const char $\ast$ \mbox{\hyperlink{structoci_api_request_a8055c26f7f9ae5a6a21eb72315364b1d}{request\+Method}}
+\begin{DoxyCompactList}\small\item\em The HTTP method. See \mbox{\hyperlink{class_oci}{Oci}} for {\ttfamily const} values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_aa6e2078739b660e07570b5c940631afd}\label{structoci_api_request_aa6e2078739b660e07570b5c940631afd}} 
+char $\ast$ \mbox{\hyperlink{structoci_api_request_aa6e2078739b660e07570b5c940631afd}{endpoint\+Cert}} =NULL
+\begin{DoxyCompactList}\small\item\em The text value of the Root CA cert for the API endpoint. Used to make secure connections. For examp, run {\ttfamily openssl s\+\_\+client -\/connect objectstorage.\+us-\/phoenix-\/1.\+oraclecloud.\+com\+:443 -\/showcerts} and find the value of the Root CA Cert. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_aa19f950be32e7910bd095dffef39960a}\label{structoci_api_request_aa19f950be32e7910bd095dffef39960a}} 
+char $\ast$ \mbox{\hyperlink{structoci_api_request_aa19f950be32e7910bd095dffef39960a}{content}} = NULL
+\begin{DoxyCompactList}\small\item\em The body to be passed to the API call. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_a97cbaa9c9401bb62f4aaeb2681e49d9d}\label{structoci_api_request_a97cbaa9c9401bb62f4aaeb2681e49d9d}} 
+char $\ast$ \mbox{\hyperlink{structoci_api_request_a97cbaa9c9401bb62f4aaeb2681e49d9d}{content\+Type}} =\char`\"{}application/json\char`\"{}
+\begin{DoxyCompactList}\small\item\em The content type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_a88652c45be18974ac4c4030590d1826a}\label{structoci_api_request_a88652c45be18974ac4c4030590d1826a}} 
+\mbox{\hyperlink{structheader}{Header}} $\ast$ \mbox{\hyperlink{structoci_api_request_a88652c45be18974ac4c4030590d1826a}{request\+Headers}}
+\begin{DoxyCompactList}\small\item\em An array of Header objects (set both key and value) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_request_aa4d816f382d78f80e786954aad5ea4b8}\label{structoci_api_request_aa4d816f382d78f80e786954aad5ea4b8}} 
+int \mbox{\hyperlink{structoci_api_request_aa4d816f382d78f80e786954aad5ea4b8}{request\+Header\+Count}}
+\begin{DoxyCompactList}\small\item\em The count of headers in the request\+Headers array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A request contains all of the information required to make a call to the OCI API. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structoci_api_request_a8de207237699592718d16272eafbb699}\label{structoci_api_request_a8de207237699592718d16272eafbb699}} 
+\index{ociApiRequest@{ociApiRequest}!ociApiRequest@{ociApiRequest}}
+\index{ociApiRequest@{ociApiRequest}!ociApiRequest@{ociApiRequest}}
+\doxysubsubsection{\texorpdfstring{ociApiRequest()}{ociApiRequest()}}
+{\footnotesize\ttfamily oci\+Api\+Request\+::oci\+Api\+Request (\begin{DoxyParamCaption}\item[{char $\ast$}]{host,  }\item[{char $\ast$}]{path,  }\item[{const char $\ast$}]{request\+Method,  }\item[{\mbox{\hyperlink{structheader}{Header}} $\ast$}]{request\+Headers = {\ttfamily \{\}},  }\item[{int}]{request\+Header\+Count = {\ttfamily 0},  }\item[{char $\ast$}]{endpoint\+Cert = {\ttfamily NULL},  }\item[{char $\ast$}]{content = {\ttfamily NULL},  }\item[{char $\ast$}]{content\+Type = {\ttfamily \char`\"{}application/json\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+An OCI API request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em host} & The REST API endpoint host. Ex\+: objectstorage.\+us-\/phoenix-\/1.\+oraclecloud.\+com \\
+\hline
+{\em path} & The path. Ex\+: \char`\"{}/n/\char`\"{} \\
+\hline
+{\em request\+Method} & The HTTP method. See \mbox{\hyperlink{class_oci}{Oci}} for {\ttfamily const} values. \\
+\hline
+{\em request\+Headers} & An array of Header objects (set both key and value) \\
+\hline
+{\em request\+Header\+Count} & The count of headers in the request\+Headers array \\
+\hline
+{\em endpoint\+Cert} & The text value of the Root CA cert for the API endpoint. Used to make secure connections. For examp, run {\ttfamily openssl s\+\_\+client -\/connect objectstorage.\+us-\/phoenix-\/1.\+oraclecloud.\+com\+:443 -\/showcerts} and find the value of the Root CA Cert. \\
+\hline
+{\em content} & The body to be passed to the API call. \\
+\hline
+{\em content\+Type} & The content type \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/oci.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,94 @@
+\hypertarget{structoci_api_response}{}\doxysection{oci\+Api\+Response Struct Reference}
+\label{structoci_api_response}\index{ociApiResponse@{ociApiResponse}}
+
+
+Contains the response from an API call.  
+
+
+
+
+{\ttfamily \#include $<$oci.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structoci_api_response_a15d0d9892b2e2212873e7ec28e235ff9}{oci\+Api\+Response}} (\mbox{\hyperlink{structheader}{Header}} $\ast$\mbox{\hyperlink{structoci_api_response_afc8d03dbaa8f0916dedded775a8ac839}{response\+Headers}}=\{\}, int \mbox{\hyperlink{structoci_api_response_a510a740b5cdcdf30d52f328fb9d104d9}{response\+Header\+Count}}=0)
+\begin{DoxyCompactList}\small\item\em Construct a response with an array of headers and the count. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structoci_api_response_a0a5abde0a717b160cdbe713c2af727ce}{oci\+Api\+Response}} (String \mbox{\hyperlink{structoci_api_response_a84b6337c9492d8545435ee571bc6f0fa}{response}}, int \mbox{\hyperlink{structoci_api_response_ad458834579ed399e0db68e73887c0693}{status\+Code}}, String \mbox{\hyperlink{structoci_api_response_ab7684b491c7efc1be46553e37a8ae151}{opc\+Request\+Id}}, String \mbox{\hyperlink{structoci_api_response_ad5bb1154b0dd1ba7a8f64a924b5e4098}{error\+Msg}}, \mbox{\hyperlink{structheader}{Header}} $\ast$\mbox{\hyperlink{structoci_api_response_afc8d03dbaa8f0916dedded775a8ac839}{response\+Headers}}=\{\}, int \mbox{\hyperlink{structoci_api_response_a510a740b5cdcdf30d52f328fb9d104d9}{response\+Header\+Count}}=0)
+\begin{DoxyCompactList}\small\item\em Construct a full response object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structoci_api_response_a84b6337c9492d8545435ee571bc6f0fa}\label{structoci_api_response_a84b6337c9492d8545435ee571bc6f0fa}} 
+String \mbox{\hyperlink{structoci_api_response_a84b6337c9492d8545435ee571bc6f0fa}{response}}
+\begin{DoxyCompactList}\small\item\em The string returned from the API call. Usually JSON. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_response_ad458834579ed399e0db68e73887c0693}\label{structoci_api_response_ad458834579ed399e0db68e73887c0693}} 
+int \mbox{\hyperlink{structoci_api_response_ad458834579ed399e0db68e73887c0693}{status\+Code}}
+\begin{DoxyCompactList}\small\item\em The HTTP status code returned. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_response_ab7684b491c7efc1be46553e37a8ae151}\label{structoci_api_response_ab7684b491c7efc1be46553e37a8ae151}} 
+String \mbox{\hyperlink{structoci_api_response_ab7684b491c7efc1be46553e37a8ae151}{opc\+Request\+Id}}
+\begin{DoxyCompactList}\small\item\em The {\ttfamily opc-\/request-\/id} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_response_ad5bb1154b0dd1ba7a8f64a924b5e4098}\label{structoci_api_response_ad5bb1154b0dd1ba7a8f64a924b5e4098}} 
+String \mbox{\hyperlink{structoci_api_response_ad5bb1154b0dd1ba7a8f64a924b5e4098}{error\+Msg}}
+\begin{DoxyCompactList}\small\item\em Any error message returned from the API call. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_response_afc8d03dbaa8f0916dedded775a8ac839}\label{structoci_api_response_afc8d03dbaa8f0916dedded775a8ac839}} 
+\mbox{\hyperlink{structheader}{Header}} $\ast$ \mbox{\hyperlink{structoci_api_response_afc8d03dbaa8f0916dedded775a8ac839}{response\+Headers}}
+\begin{DoxyCompactList}\small\item\em An array of headers to collect from the API call. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structoci_api_response_a510a740b5cdcdf30d52f328fb9d104d9}\label{structoci_api_response_a510a740b5cdcdf30d52f328fb9d104d9}} 
+int \mbox{\hyperlink{structoci_api_response_a510a740b5cdcdf30d52f328fb9d104d9}{response\+Header\+Count}}
+\begin{DoxyCompactList}\small\item\em The count of headers to collect. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the response from an API call. 
+
+Pass an array of Header objects if you want to retrieve headers sent back from the API. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structoci_api_response_a15d0d9892b2e2212873e7ec28e235ff9}\label{structoci_api_response_a15d0d9892b2e2212873e7ec28e235ff9}} 
+\index{ociApiResponse@{ociApiResponse}!ociApiResponse@{ociApiResponse}}
+\index{ociApiResponse@{ociApiResponse}!ociApiResponse@{ociApiResponse}}
+\doxysubsubsection{\texorpdfstring{ociApiResponse()}{ociApiResponse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily oci\+Api\+Response\+::oci\+Api\+Response (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structheader}{Header}} $\ast$}]{response\+Headers = {\ttfamily \{\}},  }\item[{int}]{response\+Header\+Count = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a response with an array of headers and the count. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em response\+Headers} & An array of headers (name only) \\
+\hline
+{\em response\+Header\+Count} & The count of headers in the array \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structoci_api_response_a0a5abde0a717b160cdbe713c2af727ce}\label{structoci_api_response_a0a5abde0a717b160cdbe713c2af727ce}} 
+\index{ociApiResponse@{ociApiResponse}!ociApiResponse@{ociApiResponse}}
+\index{ociApiResponse@{ociApiResponse}!ociApiResponse@{ociApiResponse}}
+\doxysubsubsection{\texorpdfstring{ociApiResponse()}{ociApiResponse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily oci\+Api\+Response\+::oci\+Api\+Response (\begin{DoxyParamCaption}\item[{String}]{response,  }\item[{int}]{status\+Code,  }\item[{String}]{opc\+Request\+Id,  }\item[{String}]{error\+Msg,  }\item[{\mbox{\hyperlink{structheader}{Header}} $\ast$}]{response\+Headers = {\ttfamily \{\}},  }\item[{int}]{response\+Header\+Count = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a full response object. 
+
+Used internally. 
+\begin{DoxyParams}{Parameters}
+{\em response} & The response text \\
+\hline
+{\em status\+Code} & The HTTP status code. Ex. 200. \\
+\hline
+{\em opc\+Request\+Id} & The {\ttfamily opc-\/request-\/id}. \\
+\hline
+{\em error\+Msg} & The error returned from the API \\
+\hline
+{\em response\+Headers} & An array of headers (name only) \\
+\hline
+{\em response\+Header\+Count} & The count of headers in the array \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/oci.\+h\end{DoxyCompactItemize}
