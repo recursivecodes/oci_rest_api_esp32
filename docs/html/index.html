@@ -80,7 +80,7 @@ About</h1>
 <p><b>Please note!</b> This library has only been successfully tested on an ESP-32. It has not been tested on any other board, and probably won't work on any other board due to memory constraints and dependent libraries.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Documentation</h1>
-<p>The latest documentation always lives at: <a href="https://recursivecodes.github.io/oci-rest-api-for-esp-32/html/index.html">https://recursivecodes.github.io/oci-rest-api-for-esp-32/html/index.html</a></p>
+<p>The latest documentation always lives at: <a href="https://recursivecodes.github.io/oci_rest_api_esp32/html/index.html">https://recursivecodes.github.io/oci_rest_api_esp32/html/index.html</a></p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Usage</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
@@ -132,17 +132,17 @@ Call API</h2>
 <div class="fragment"><div class="line">oci.apiCall(listBucketsRequest, listBucketsResponse);</div>
 </div><!-- fragment --><p>If successful, the <code>statusCode</code> property of the response object will be populated with <code>200</code>. You can then print/handle the result as needed. In this example, I'm deserializing the JSON string into an object.</p>
 <div class="fragment"><div class="line">if( listBucketsResponse.statusCode == 200 ) {</div>
-<div class="line">    // print the `opc-request-id` from the response headers</div>
-<div class="line">    Serial.println(resHeaders[0].headerValue);</div>
-<div class="line">    // deserialize and pretty print the response</div>
-<div class="line">    Serial.println(&quot;List Buckets Response:&quot;);</div>
-<div class="line">    DynamicJsonDocument doc(6000);</div>
-<div class="line">    deserializeJson(doc, listBucketsResponse.response);</div>
-<div class="line">    serializeJsonPretty(doc, Serial);  </div>
-<div class="line">  }</div>
-<div class="line">  else {</div>
-<div class="line">    Serial.println(listBucketsResponse.errorMsg);</div>
-<div class="line">  }</div>
+<div class="line">  // print the `opc-request-id` from the response headers</div>
+<div class="line">  Serial.println(resHeaders[0].headerValue);</div>
+<div class="line">  // deserialize and pretty print the response</div>
+<div class="line">  Serial.println(&quot;List Buckets Response:&quot;);</div>
+<div class="line">  DynamicJsonDocument doc(6000);</div>
+<div class="line">  deserializeJson(doc, listBucketsResponse.response);</div>
+<div class="line">  serializeJsonPretty(doc, Serial);  </div>
+<div class="line">}</div>
+<div class="line">else {</div>
+<div class="line">  Serial.println(listBucketsResponse.errorMsg);</div>
+<div class="line">}</div>
 </div><!-- fragment --><p>The previous example might produce output such as this:</p>
 <div class="fragment"><div class="line">[</div>
 <div class="line">  {</div>

@@ -13,7 +13,7 @@ You should have already created the required keys and collected the necessary OC
 This library exists to make it easier to make calls to the OCI APIs from your microcontroller. The \href{https://docs.oracle.com/en-us/iaas/Content/API/Concepts/signingrequests.htm}{\texttt{ request signature}} process is somewhat complex, and it can be tricky to sign an HTTPS request from a memory constrained device. I created this library to simplify the process.
 
 {\bfseries{Please note!}} This library has only been successfully tested on an ESP-\/32. It has not been tested on any other board, and probably won\textquotesingle{}t work on any other board due to memory constraints and dependent libraries.\hypertarget{index_autotoc_md3}{}\doxysection{Documentation}\label{index_autotoc_md3}
-The latest documentation always lives at\+: \href{https://recursivecodes.github.io/oci-rest-api-for-esp-32/html/index.html}{\texttt{ https\+://recursivecodes.\+github.\+io/oci-\/rest-\/api-\/for-\/esp-\/32/html/index.\+html}}\hypertarget{index_autotoc_md4}{}\doxysection{Usage}\label{index_autotoc_md4}
+The latest documentation always lives at\+: \href{https://recursivecodes.github.io/oci_rest_api_esp32/html/index.html}{\texttt{ https\+://recursivecodes.\+github.\+io/oci\+\_\+rest\+\_\+api\+\_\+esp32/html/index.\+html}}\hypertarget{index_autotoc_md4}{}\doxysection{Usage}\label{index_autotoc_md4}
 \hypertarget{index_autotoc_md5}{}\doxysubsection{Include the Library}\label{index_autotoc_md5}
 
 \begin{DoxyCode}{0}
@@ -123,17 +123,17 @@ If successful, the {\ttfamily status\+Code} property of the response object will
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{if( listBucketsResponse.statusCode == 200 ) \{}
-\DoxyCodeLine{    // print the `opc-\/request-\/id` from the response headers}
-\DoxyCodeLine{    Serial.println(resHeaders[0].headerValue);}
-\DoxyCodeLine{    // deserialize and pretty print the response}
-\DoxyCodeLine{    Serial.println("{}List Buckets Response:"{});}
-\DoxyCodeLine{    DynamicJsonDocument doc(6000);}
-\DoxyCodeLine{    deserializeJson(doc, listBucketsResponse.response);}
-\DoxyCodeLine{    serializeJsonPretty(doc, Serial);  }
-\DoxyCodeLine{  \}}
-\DoxyCodeLine{  else \{}
-\DoxyCodeLine{    Serial.println(listBucketsResponse.errorMsg);}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{  // print the `opc-\/request-\/id` from the response headers}
+\DoxyCodeLine{  Serial.println(resHeaders[0].headerValue);}
+\DoxyCodeLine{  // deserialize and pretty print the response}
+\DoxyCodeLine{  Serial.println("{}List Buckets Response:"{});}
+\DoxyCodeLine{  DynamicJsonDocument doc(6000);}
+\DoxyCodeLine{  deserializeJson(doc, listBucketsResponse.response);}
+\DoxyCodeLine{  serializeJsonPretty(doc, Serial);  }
+\DoxyCodeLine{\}}
+\DoxyCodeLine{else \{}
+\DoxyCodeLine{  Serial.println(listBucketsResponse.errorMsg);}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
