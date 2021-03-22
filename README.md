@@ -118,17 +118,17 @@ If successful, the `statusCode` property of the response object will be populate
 
 ```c_cpp
 if( listBucketsResponse.statusCode == 200 ) {
-    // print the `opc-request-id` from the response headers
-    Serial.println(resHeaders[0].headerValue);
-    // deserialize and pretty print the response
-    Serial.println("List Buckets Response:");
-    DynamicJsonDocument doc(6000);
-    deserializeJson(doc, listBucketsResponse.response);
-    serializeJsonPretty(doc, Serial);  
-  }
-  else {
-    Serial.println(listBucketsResponse.errorMsg);
-  }
+  // print the `opc-request-id` from the response headers
+  Serial.println(resHeaders[0].headerValue);
+  // deserialize and pretty print the response
+  Serial.println("List Buckets Response:");
+  DynamicJsonDocument doc(6000);
+  deserializeJson(doc, listBucketsResponse.response);
+  serializeJsonPretty(doc, Serial);  
+}
+else {
+  Serial.println(listBucketsResponse.errorMsg);
+}
 ```
 
 The previous example might produce output such as this:
