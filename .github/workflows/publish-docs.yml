@@ -12,6 +12,8 @@ jobs:
 
       - name: Lint 🧺
         uses: arduino/arduino-lint-action@v1
+        with:
+          complicance: permissive
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
