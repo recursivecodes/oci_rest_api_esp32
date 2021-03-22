@@ -19,6 +19,8 @@ This library exists to make it easier to make calls to the OCI APIs from your mi
 
 ## Documentation
 
+The latest documentation always lives at: https://recursivecodes.github.io/oci-rest-api-for-esp-32/html/index.html
+
 ## Usage
 
 ### Include the Library
