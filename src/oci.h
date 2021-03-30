@@ -241,7 +241,7 @@ class Oci {
       sprintf(contentLenStr, "%d", contentLen);
       
       {
-        char signingString[1500] = "";
+        char signingString[1000] = "";
         strcat(signingString, "(request-target): ");
         strcat(signingString, request.requestMethod);
         strcat(signingString, " ");
@@ -282,7 +282,7 @@ class Oci {
         encryptAndEncode((const unsigned char*) signingString, encoded);
       }
       
-      char authHeader[1250] = "Signature version=\"1\",headers=\"(request-target) date host";
+      char authHeader[1000] = "Signature version=\"1\",headers=\"(request-target) date host";
       if(putPost) strcat(authHeader, " x-content-sha256 content-length content-type");
       strcat(authHeader, "\",keyId=\"");
       strcat(authHeader, ociProfile.tenancyOcid);
@@ -295,8 +295,9 @@ class Oci {
       strcat(authHeader, "\"");
     
       String url = "https://" + String(request.host) + String(request.path);
-    
       /*
+      Serial.println("URL");
+      Serial.println(url);
       Serial.println("Time:");
       Serial.println(timestamp);
       Serial.println("Auth Header:");
@@ -307,8 +308,9 @@ class Oci {
       Serial.println(contentLenStr);
       Serial.println("Content Encoded:");
       Serial.println((char*) contentEncoded);
+      Serial.println("Cert:");
+      Serial.println(request.endpointCert);
       */
-      
       WiFiClientSecure *client = new WiFiClientSecure;
       if(request.endpointCert) {
         client->setCACert(request.endpointCert);
@@ -341,18 +343,19 @@ class Oci {
           keys[i] = response.responseHeaders[i].headerName;
         }
         http.collectHeaders(keys, response.responseHeaderCount);
-        if(request.requestMethod == HTTP_METHOD_GET) {
-          statusCode = http.GET();
-        }
-        else if (request.requestMethod == HTTP_METHOD_POST) {
-          statusCode = http.POST(request.content);
-          
-        }
-        else if (request.requestMethod == HTTP_METHOD_PUT) {
-          statusCode = http.PUT(String(request.content));
-        }
-        else if (request.requestMethod == HTTP_METHOD_DELETE) {
-          statusCode = http.sendRequest("DELETE", request.content);
+        {
+          if(request.requestMethod == HTTP_METHOD_GET) {
+            statusCode = http.GET();
+          }
+          else if (request.requestMethod == HTTP_METHOD_POST) {
+            statusCode = http.POST(request.content);
+          }
+          else if (request.requestMethod == HTTP_METHOD_PUT) {
+            statusCode = http.PUT(String(request.content));
+          }
+          else if (request.requestMethod == HTTP_METHOD_DELETE) {
+            statusCode = http.sendRequest("DELETE", request.content);
+          }
         }
         
         for (int i=0; i<response.responseHeaderCount; i++) {
@@ -374,6 +377,7 @@ class Oci {
         }
         http.end();     
       }
+      delete client;
     }
 };
 #endif

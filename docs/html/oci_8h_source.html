@@ -240,7 +240,7 @@ $(function() {
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      sprintf(contentLenStr, <span class="stringliteral">&quot;%d&quot;</span>, contentLen);</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      </div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;      {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordtype">char</span> signingString[1500] = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordtype">char</span> signingString[1000] = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        strcat(signingString, <span class="stringliteral">&quot;(request-target): &quot;</span>);</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        strcat(signingString, request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a>);</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        strcat(signingString, <span class="stringliteral">&quot; &quot;</span>);</div>
@@ -281,7 +281,7 @@ $(function() {
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <a class="code" href="class_oci.html#a3f87f6f8387296eef2b581f849b6a14a">encryptAndEncode</a>((<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) signingString, encoded);</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;      }</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;      <span class="keywordtype">char</span> authHeader[1250] = <span class="stringliteral">&quot;Signature version=\&quot;1\&quot;,headers=\&quot;(request-target) date host&quot;</span>;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;      <span class="keywordtype">char</span> authHeader[1000] = <span class="stringliteral">&quot;Signature version=\&quot;1\&quot;,headers=\&quot;(request-target) date host&quot;</span>;</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;      <span class="keywordflow">if</span>(putPost) strcat(authHeader, <span class="stringliteral">&quot; x-content-sha256 content-length content-type&quot;</span>);</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      strcat(authHeader, <span class="stringliteral">&quot;\&quot;,keyId=\&quot;&quot;</span>);</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;      strcat(authHeader, <a class="code" href="structoci_profile.html">ociProfile</a>.<a class="code" href="structoci_profile.html#a6966fb23f3a294eadb0cffab83efb8dc">tenancyOcid</a>);</div>
@@ -294,88 +294,92 @@ $(function() {
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;      strcat(authHeader, <span class="stringliteral">&quot;\&quot;&quot;</span>);</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    </div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;      String url = <span class="stringliteral">&quot;https://&quot;</span> + String(request.<a class="code" href="structoci_api_request.html#a9eba2f324a78303c128322b1c319545c">host</a>) + String(request.<a class="code" href="structoci_api_request.html#acd7e286e96bf2ff72c4f34410d989833">path</a>);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;      <span class="comment">/*</span></div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment">      Serial.println(&quot;Time:&quot;);</span></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment">      Serial.println(timestamp);</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment">      Serial.println(&quot;Auth Header:&quot;);</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="comment">      Serial.println(String( (char*) authHeader));</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment">      Serial.println(&quot;Content:&quot;);</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">      Serial.println(request.content);</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="comment">      Serial.println(&quot;Content Length:&quot;);</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment">      Serial.println(contentLenStr);</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment">      Serial.println(&quot;Content Encoded:&quot;);</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment">      Serial.println((char*) contentEncoded);</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment">      */</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;      </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      WiFiClientSecure *client = <span class="keyword">new</span> WiFiClientSecure;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      <span class="keywordflow">if</span>(request.<a class="code" href="structoci_api_request.html#aa6e2078739b660e07570b5c940631afd">endpointCert</a>) {</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        client-&gt;setCACert(request.<a class="code" href="structoci_api_request.html#aa6e2078739b660e07570b5c940631afd">endpointCert</a>);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      }</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;      <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        client-&gt;setInsecure();</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      }</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      {</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        HTTPClient http;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        http.begin(*client, url);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keywordtype">int</span> statusCode = 0;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        http.addHeader(<span class="stringliteral">&quot;date&quot;</span>, String(timestamp));</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        http.addHeader(<span class="stringliteral">&quot;Authorization&quot;</span>, String( (<span class="keywordtype">char</span>*) authHeader) );</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordflow">if</span>(putPost) {</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;          http.addHeader(<span class="stringliteral">&quot;x-content-sha256&quot;</span>, String((<span class="keywordtype">char</span>*) contentEncoded));</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;          <span class="comment">// do not add content-length header, the httpclient adds it </span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        }</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        http.addHeader(<span class="stringliteral">&quot;content-type&quot;</span>, String(request.<a class="code" href="structoci_api_request.html#a97cbaa9c9401bb62f4aaeb2681e49d9d">contentType</a>));</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      </div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="comment">// user defined headers - add them to the request</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;request.<a class="code" href="structoci_api_request.html#aa4d816f382d78f80e786954aad5ea4b8">requestHeaderCount</a>; i++) {</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;          <span class="keywordtype">char</span>* hN = request.<a class="code" href="structoci_api_request.html#a88652c45be18974ac4c4030590d1826a">requestHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a>;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;          <span class="keywordtype">char</span>* hV = request.<a class="code" href="structoci_api_request.html#a88652c45be18974ac4c4030590d1826a">requestHeaders</a>[i].<a class="code" href="structheader.html#a6c85690408d36a62f50564107b994467">headerValue</a>;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;          http.addHeader(hN, hV);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        }</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="comment">// headers to retrieve with response</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* keys[] = {};</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;response.<a class="code" href="structoci_api_response.html#a510a740b5cdcdf30d52f328fb9d104d9">responseHeaderCount</a>; i++) {</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;          keys[i] = response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a>;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        }</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        http.collectHeaders(keys, response.<a class="code" href="structoci_api_response.html#a510a740b5cdcdf30d52f328fb9d104d9">responseHeaderCount</a>);</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <span class="keywordflow">if</span>(request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#ad8270b3d929a1f0e48e3bbce3289256a">HTTP_METHOD_GET</a>) {</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;          statusCode = http.GET();</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        }</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#a5c9053e0d5044cc07c2adc626f4a66e8">HTTP_METHOD_POST</a>) {</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;          statusCode = http.POST(request.<a class="code" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>);</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;          </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        }</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#a70ef307ee29bcce441a957ac8ba9146e">HTTP_METHOD_PUT</a>) {</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;          statusCode = http.PUT(String(request.<a class="code" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>));</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        }</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#a2b9ad68082d42651d701d6e0b988b6d2">HTTP_METHOD_DELETE</a>) {</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;          statusCode = http.sendRequest(<span class="stringliteral">&quot;DELETE&quot;</span>, request.<a class="code" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>);</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        }</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;response.<a class="code" href="structoci_api_response.html#a510a740b5cdcdf30d52f328fb9d104d9">responseHeaderCount</a>; i++) {</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;          <span class="keywordtype">char</span>* headerName = response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a>;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;          String headerVal = http.header( (<span class="keyword">const</span> <span class="keywordtype">char</span>*) response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a> );</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;          <span class="keywordtype">int</span> headerValLen = headerVal.length()+1;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;          <span class="keywordtype">char</span> headerValBuffer[headerValLen];</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;          headerVal.toCharArray(headerValBuffer, headerValLen);</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;          response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a6c85690408d36a62f50564107b994467">headerValue</a> = (<span class="keywordtype">char</span> *)malloc(headerValLen);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;          strncpy(response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a6c85690408d36a62f50564107b994467">headerValue</a>, (<span class="keyword">const</span> <span class="keywordtype">char</span>*) headerValBuffer, headerValLen);</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        }</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        </div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <span class="keywordflow">if</span> (statusCode &gt; 0) { </div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;          response.<a class="code" href="structoci_api_response.html#a84b6337c9492d8545435ee571bc6f0fa">response</a> = http.getString();</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;          response.<a class="code" href="structoci_api_response.html#ad458834579ed399e0db68e73887c0693">statusCode</a> = statusCode;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        }</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;          response.<a class="code" href="structoci_api_response.html#ad5bb1154b0dd1ba7a8f64a924b5e4098">errorMsg</a> = http.errorToString(statusCode).c_str();</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;      <span class="comment">/*</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment">      Serial.println(&quot;URL&quot;);</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment">      Serial.println(url);</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment">      Serial.println(&quot;Time:&quot;);</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment">      Serial.println(timestamp);</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="comment">      Serial.println(&quot;Auth Header:&quot;);</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment">      Serial.println(String( (char*) authHeader));</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">      Serial.println(&quot;Content:&quot;);</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="comment">      Serial.println(request.content);</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment">      Serial.println(&quot;Content Length:&quot;);</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment">      Serial.println(contentLenStr);</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment">      Serial.println(&quot;Content Encoded:&quot;);</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment">      Serial.println((char*) contentEncoded);</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment">      Serial.println(&quot;Cert:&quot;);</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment">      Serial.println(request.endpointCert);</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment">      */</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;      WiFiClientSecure *client = <span class="keyword">new</span> WiFiClientSecure;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      <span class="keywordflow">if</span>(request.<a class="code" href="structoci_api_request.html#aa6e2078739b660e07570b5c940631afd">endpointCert</a>) {</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        client-&gt;setCACert(request.<a class="code" href="structoci_api_request.html#aa6e2078739b660e07570b5c940631afd">endpointCert</a>);</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;      }</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        client-&gt;setInsecure();</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      }</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;      {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        HTTPClient http;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        http.begin(*client, url);</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keywordtype">int</span> statusCode = 0;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        http.addHeader(<span class="stringliteral">&quot;date&quot;</span>, String(timestamp));</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        http.addHeader(<span class="stringliteral">&quot;Authorization&quot;</span>, String( (<span class="keywordtype">char</span>*) authHeader) );</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;      </div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keywordflow">if</span>(putPost) {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;          http.addHeader(<span class="stringliteral">&quot;x-content-sha256&quot;</span>, String((<span class="keywordtype">char</span>*) contentEncoded));</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;          <span class="comment">// do not add content-length header, the httpclient adds it </span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        }</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        http.addHeader(<span class="stringliteral">&quot;content-type&quot;</span>, String(request.<a class="code" href="structoci_api_request.html#a97cbaa9c9401bb62f4aaeb2681e49d9d">contentType</a>));</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;      </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="comment">// user defined headers - add them to the request</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;request.<a class="code" href="structoci_api_request.html#aa4d816f382d78f80e786954aad5ea4b8">requestHeaderCount</a>; i++) {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;          <span class="keywordtype">char</span>* hN = request.<a class="code" href="structoci_api_request.html#a88652c45be18974ac4c4030590d1826a">requestHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a>;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;          <span class="keywordtype">char</span>* hV = request.<a class="code" href="structoci_api_request.html#a88652c45be18974ac4c4030590d1826a">requestHeaders</a>[i].<a class="code" href="structheader.html#a6c85690408d36a62f50564107b994467">headerValue</a>;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;          http.addHeader(hN, hV);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="comment">// headers to retrieve with response</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* keys[] = {};</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;response.<a class="code" href="structoci_api_response.html#a510a740b5cdcdf30d52f328fb9d104d9">responseHeaderCount</a>; i++) {</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;          keys[i] = response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a>;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        }</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        http.collectHeaders(keys, response.<a class="code" href="structoci_api_response.html#a510a740b5cdcdf30d52f328fb9d104d9">responseHeaderCount</a>);</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        {</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;          <span class="keywordflow">if</span>(request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#ad8270b3d929a1f0e48e3bbce3289256a">HTTP_METHOD_GET</a>) {</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            statusCode = http.GET();</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;          }</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;          <span class="keywordflow">else</span> <span class="keywordflow">if</span> (request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#a5c9053e0d5044cc07c2adc626f4a66e8">HTTP_METHOD_POST</a>) {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            statusCode = http.POST(request.<a class="code" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>);</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;          }</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;          <span class="keywordflow">else</span> <span class="keywordflow">if</span> (request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#a70ef307ee29bcce441a957ac8ba9146e">HTTP_METHOD_PUT</a>) {</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            statusCode = http.PUT(String(request.<a class="code" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>));</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;          }</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;          <span class="keywordflow">else</span> <span class="keywordflow">if</span> (request.<a class="code" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a> == <a class="code" href="class_oci.html#a2b9ad68082d42651d701d6e0b988b6d2">HTTP_METHOD_DELETE</a>) {</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            statusCode = http.sendRequest(<span class="stringliteral">&quot;DELETE&quot;</span>, request.<a class="code" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;          }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        }</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        </div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;response.<a class="code" href="structoci_api_response.html#a510a740b5cdcdf30d52f328fb9d104d9">responseHeaderCount</a>; i++) {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;          <span class="keywordtype">char</span>* headerName = response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a>;</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;          String headerVal = http.header( (<span class="keyword">const</span> <span class="keywordtype">char</span>*) response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a433551c34f45ee29afa8102783bc92ab">headerName</a> );</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;          <span class="keywordtype">int</span> headerValLen = headerVal.length()+1;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;          <span class="keywordtype">char</span> headerValBuffer[headerValLen];</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;          headerVal.toCharArray(headerValBuffer, headerValLen);</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;          response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a6c85690408d36a62f50564107b994467">headerValue</a> = (<span class="keywordtype">char</span> *)malloc(headerValLen);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;          strncpy(response.<a class="code" href="structoci_api_response.html#afc8d03dbaa8f0916dedded775a8ac839">responseHeaders</a>[i].<a class="code" href="structheader.html#a6c85690408d36a62f50564107b994467">headerValue</a>, (<span class="keyword">const</span> <span class="keywordtype">char</span>*) headerValBuffer, headerValLen);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        }</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordflow">if</span> (statusCode &gt; 0) { </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;          response.<a class="code" href="structoci_api_response.html#a84b6337c9492d8545435ee571bc6f0fa">response</a> = http.getString();</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;          response.<a class="code" href="structoci_api_response.html#ad458834579ed399e0db68e73887c0693">statusCode</a> = statusCode;</div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        }</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        http.end();     </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;      }</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    }</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;};</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;          response.<a class="code" href="structoci_api_response.html#ad5bb1154b0dd1ba7a8f64a924b5e4098">errorMsg</a> = http.errorToString(statusCode).c_str();</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        }</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        http.end();     </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;      }</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;      <span class="keyword">delete</span> client;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    }</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;};</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_oci_html"><div class="ttname"><a href="class_oci.html">Oci</a></div><div class="ttdoc">The OCI API.</div><div class="ttdef"><b>Definition:</b> oci.h:165</div></div>
 <div class="ttc" id="aclass_oci_html_a01d58879e778e166e6a2174f63c87ad6"><div class="ttname"><a href="class_oci.html#a01d58879e778e166e6a2174f63c87ad6">Oci::Oci</a></div><div class="ttdeci">Oci(OciProfile profile, char *timeServer=&quot;pool.ntp.org&quot;, long gmtOffsetSeconds=0, int daylightOffsetSeconds=0)</div><div class="ttdoc">Construct a new instance of the OCI API.</div><div class="ttdef"><b>Definition:</b> oci.h:185</div></div>
 <div class="ttc" id="aclass_oci_html_a2b9ad68082d42651d701d6e0b988b6d2"><div class="ttname"><a href="class_oci.html#a2b9ad68082d42651d701d6e0b988b6d2">Oci::HTTP_METHOD_DELETE</a></div><div class="ttdeci">const char * HTTP_METHOD_DELETE</div><div class="ttdoc">HTTP DELETE.</div><div class="ttdef"><b>Definition:</b> oci.h:172</div></div>
