@@ -241,7 +241,7 @@ class Oci {
       sprintf(contentLenStr, "%d", contentLen);
       
       {
-        char signingString[1000] = "";
+        char signingString[800] = "";
         strcat(signingString, "(request-target): ");
         strcat(signingString, request.requestMethod);
         strcat(signingString, " ");
@@ -282,7 +282,7 @@ class Oci {
         encryptAndEncode((const unsigned char*) signingString, encoded);
       }
       
-      char authHeader[1000] = "Signature version=\"1\",headers=\"(request-target) date host";
+      char authHeader[800] = "Signature version=\"1\",headers=\"(request-target) date host";
       if(putPost) strcat(authHeader, " x-content-sha256 content-length content-type");
       strcat(authHeader, "\",keyId=\"");
       strcat(authHeader, ociProfile.tenancyOcid);
@@ -321,6 +321,7 @@ class Oci {
       {
         HTTPClient http;
         http.begin(*client, url);
+        http.setReuse(false);
         int statusCode = 0;
         http.addHeader("date", String(timestamp));
         http.addHeader("Authorization", String( (char*) authHeader) );
