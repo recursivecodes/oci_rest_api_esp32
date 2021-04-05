@@ -2,6 +2,7 @@
 #define Oci_h
 
 #include "Arduino.h"
+#include <esp32-hal-log.h>  
 #include <HTTPClient.h>
 #include "WiFiClientSecure.h"
 #include "time.h"
@@ -72,7 +73,7 @@ struct ociApiRequest {
     Header* requestHeaders={}, 
     int requestHeaderCount=0, 
     char* endpointCert=NULL, 
-    char* content=NULL, 
+    char* content="", 
     char* contentType="application/json" 
   ){
     this->host = host;
@@ -164,12 +165,13 @@ typedef struct ociProfile OciProfile;
  */
 class Oci {
   public:
-  
-    const char* HTTP_METHOD_GET = "get"; //!< HTTP GET
-    const char* HTTP_METHOD_POST = "post"; //!< HTTP POST
-    const char* HTTP_METHOD_PUT = "put"; //!< HTTP PUT
-    const char* HTTP_METHOD_PATCH = "patch"; //!< HTTP PATCH
-    const char* HTTP_METHOD_DELETE = "delete"; //!< HTTP DELETE
+    WiFiClientSecure client;
+
+    const char* HTTP_METHOD_GET = "GET"; //!< HTTP GET
+    const char* HTTP_METHOD_POST = "POST"; //!< HTTP POST
+    const char* HTTP_METHOD_PUT = "PUT"; //!< HTTP PUT
+    const char* HTTP_METHOD_PATCH = "PATCH"; //!< HTTP PATCH
+    const char* HTTP_METHOD_DELETE = "DELETE"; //!< HTTP DELETE
 
     OciProfile ociProfile; //!< The OciProfile to use
     char* ntpServer = "pool.ntp.org"; //!< The ntpServer
@@ -200,7 +202,7 @@ class Oci {
      */
     void encryptAndEncode(
         const unsigned char* toEncrypt/**< [in] toEncrypt the value to encrypt */, 
-        unsigned char (&encoded)[1024]/**< [out] &encoded the hashed/signed/encoded output */
+        unsigned char (&encoded)[500]/**< [out] &encoded the hashed/signed/encoded output */
       ) {
       mbedtls_pk_context pk;
       mbedtls_pk_init(&pk);
@@ -231,7 +233,7 @@ class Oci {
         OciApiRequest request, /**< [in] The API request */
         OciApiResponse &response /** [out] The API response */
       ) {
-      unsigned char encoded[1024];
+      unsigned char encoded[500];
       char timestamp[35];
       boolean putPost = request.requestMethod == HTTP_METHOD_POST || request.requestMethod == HTTP_METHOD_PUT;
       size_t contentLen = 0;
@@ -241,9 +243,12 @@ class Oci {
       sprintf(contentLenStr, "%d", contentLen);
       
       {
-        char signingString[800] = "";
+        char signingString[400] = "";
         strcat(signingString, "(request-target): ");
-        strcat(signingString, request.requestMethod);
+        char meth[10];
+        strcpy(meth, request.requestMethod);
+        strlwr(meth);
+        strcat(signingString, meth);
         strcat(signingString, " ");
         strcat(signingString, request.path);
         strcat(signingString, "\n");
@@ -265,7 +270,7 @@ class Oci {
             byte contentHash[32];
             mbedtls_sha256((const unsigned char*) request.content, strlen((char*) request.content), contentHash, 0);
             size_t contentEncodedOutLen;
-            mbedtls_base64_encode(contentEncoded, 64, &contentEncodedOutLen, (const unsigned char*) contentHash, sizeof(contentHash) / 2);
+            mbedtls_base64_encode(contentEncoded, 64, &contentEncodedOutLen, (const unsigned char*) contentHash, sizeof(contentHash));
             strcat(signingString, "x-content-sha256: ");
             strcat(signingString, (char*) contentEncoded);
             strcat(signingString, "\n");
@@ -293,7 +298,7 @@ class Oci {
       strcat(authHeader, "\",algorithm=\"rsa-sha256\",signature=\"");
       strcat(authHeader, ((char*) encoded));
       strcat(authHeader, "\"");
-    
+      
       String url = "https://" + String(request.host) + String(request.path);
       /*
       Serial.println("URL");
@@ -311,74 +316,102 @@ class Oci {
       Serial.println("Cert:");
       Serial.println(request.endpointCert);
       */
-      WiFiClientSecure *client = new WiFiClientSecure;
+
       if(request.endpointCert) {
-        client->setCACert(request.endpointCert);
+        client.setCACert(request.endpointCert);
       }
       else {
-        client->setInsecure();
+        client.setInsecure();
       }
       {
-        HTTPClient http;
-        http.begin(*client, url);
-        http.setReuse(false);
-        int statusCode = 0;
-        http.addHeader("date", String(timestamp));
-        http.addHeader("Authorization", String( (char*) authHeader) );
-      
-        if(putPost) {
-          http.addHeader("x-content-sha256", String((char*) contentEncoded));
-          // do not add content-length header, the httpclient adds it 
-        }
-        http.addHeader("content-type", String(request.contentType));
-      
-        // user defined headers - add them to the request
-        for (int i=0; i<request.requestHeaderCount; i++) {
-          char* hN = request.requestHeaders[i].headerName;
-          char* hV = request.requestHeaders[i].headerValue;
-          http.addHeader(hN, hV);
-        }
-        // headers to retrieve with response
-        const char* keys[] = {};
-        for (int i=0; i<response.responseHeaderCount; i++) {
-          keys[i] = response.responseHeaders[i].headerName;
-        }
-        http.collectHeaders(keys, response.responseHeaderCount);
-        {
-          if(request.requestMethod == HTTP_METHOD_GET) {
-            statusCode = http.GET();
-          }
-          else if (request.requestMethod == HTTP_METHOD_POST) {
-            statusCode = http.POST(request.content);
-          }
-          else if (request.requestMethod == HTTP_METHOD_PUT) {
-            statusCode = http.PUT(String(request.content));
-          }
-          else if (request.requestMethod == HTTP_METHOD_DELETE) {
-            statusCode = http.sendRequest("DELETE", request.content);
-          }
-        }
-        
-        for (int i=0; i<response.responseHeaderCount; i++) {
-          char* headerName = response.responseHeaders[i].headerName;
-          String headerVal = http.header( (const char*) response.responseHeaders[i].headerName );
-          int headerValLen = headerVal.length()+1;
-          char headerValBuffer[headerValLen];
-          headerVal.toCharArray(headerValBuffer, headerValLen);
-          response.responseHeaders[i].headerValue = (char *)malloc(headerValLen);
-          strncpy(response.responseHeaders[i].headerValue, (const char*) headerValBuffer, headerValLen);
-        }
-        
-        if (statusCode > 0) { 
-          response.response = http.getString();
-          response.statusCode = statusCode;
+        log_v("Connecting to %s on 443", request.host);
+        if( !client.connect(request.host, 443) ) {
+          Serial.println("Connection failed!");
         }
         else {
-          response.errorMsg = http.errorToString(statusCode).c_str();
+          client.println(String(request.requestMethod) + " " + url + " HTTP/1.1");
+          log_v("%s %s HTTP/1.1", request.requestMethod, url.c_str());
+          
+          client.println("date: " + String(timestamp));
+          log_v("date: %s", (char*) timestamp);
+          client.println("Authorization: " + String( (char*) authHeader));
+          log_v("Authorization: %s", (char*) authHeader);
+          client.println("host: " + String(request.host));
+          log_v("Host: %s", (char*) request.host);
+          if(putPost) {
+            client.println("x-content-sha256: " + String((char*) contentEncoded));
+            log_v("x-content-sha256: %s", (char*) contentEncoded);
+          }
+          // user defined headers - add them to the request
+          for (int i=0; i<request.requestHeaderCount; i++) {
+            char* hN = request.requestHeaders[i].headerName;
+            char* hV = request.requestHeaders[i].headerValue;
+            client.println(String(hN) + ": " + String(hV));
+            log_v("%s : %s", hN, hV);
+          }
+          client.println("content-type: " + String(request.contentType));
+          log_v("content-type: %s", request.contentType);
+          client.print("content-length: ");
+          client.println(contentLenStr);
+          log_v("content-length: %s", contentLenStr);
+          client.println("Connection: close");
+          log_v("Connection: close");
+          client.println();
+          if(contentLen > 0) {
+            client.println(request.content);
+          }
+          bool firstLine = true;
+          while (client.connected()) {
+            size_t len = client.available();
+            if(len > 0) {
+              String line = client.readStringUntil('\n');
+
+              if(firstLine) {
+                  firstLine = false;
+                  int codePos = line.indexOf(' ') + 1;
+                  response.statusCode = line.substring(codePos, line.indexOf(' ', codePos)).toInt();
+                  log_v("Set status code to: %d", response.statusCode);
+              }
+              else {
+                char headerStr[250];
+                line.toCharArray(headerStr, sizeof(headerStr));
+
+                if( response.responseHeaders != NULL ) {
+                  char* separator = strchr(headerStr, ':');
+                    if (separator != 0){
+                        // Actually split the string in 2: replace ':' with 0
+                        *separator = 0;
+                        char* hN = headerStr;
+                        ++separator;
+                        char* hV = &separator[1]; // trim the leading space
+                        // not ideal... need to refactor this
+                        for (int i=0; i<response.responseHeaderCount; i++) {
+                            if( strcmp(response.responseHeaders[i].headerName, hN) == 0 ) {
+                              log_v("Setting requested response header: %s to value %s", hN, hV);
+                              response.responseHeaders[i].headerValue = hV;
+                            }
+                        }
+                    }
+                }
+                log_v("Response Header: %s", line.c_str());
+                if (line == "\r") {
+                  log_v("Headers Received");
+                  break;
+                }
+              }
+            }
+          }
+          // if there are incoming bytes available
+          // from the server, read them and print them:
+          String clientResponse = "";
+          while (client.available()) {
+            clientResponse.concat(client.readString());
+          }
+          response.response = clientResponse;
+
+          client.stop();
         }
-        http.end();     
       }
-      delete client;
     }
 };
 #endif
