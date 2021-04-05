@@ -77,9 +77,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8de207237699592718d16272eafbb699"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoci_api_request.html#a8de207237699592718d16272eafbb699">ociApiRequest</a> (char *<a class="el" href="structoci_api_request.html#a9eba2f324a78303c128322b1c319545c">host</a>, char *<a class="el" href="structoci_api_request.html#acd7e286e96bf2ff72c4f34410d989833">path</a>, const char *<a class="el" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a>, <a class="el" href="structheader.html">Header</a> *<a class="el" href="structoci_api_request.html#a88652c45be18974ac4c4030590d1826a">requestHeaders</a>={}, int <a class="el" href="structoci_api_request.html#aa4d816f382d78f80e786954aad5ea4b8">requestHeaderCount</a>=0, char *<a class="el" href="structoci_api_request.html#aa6e2078739b660e07570b5c940631afd">endpointCert</a>=NULL, char *<a class="el" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>=NULL, char *<a class="el" href="structoci_api_request.html#a97cbaa9c9401bb62f4aaeb2681e49d9d">contentType</a>=&quot;application/json&quot;)</td></tr>
-<tr class="memdesc:a8de207237699592718d16272eafbb699"><td class="mdescLeft">&#160;</td><td class="mdescRight">An OCI API request.  <a href="structoci_api_request.html#a8de207237699592718d16272eafbb699">More...</a><br /></td></tr>
-<tr class="separator:a8de207237699592718d16272eafbb699"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c38dfbdf81b7edba107f9bea776d89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoci_api_request.html#a02c38dfbdf81b7edba107f9bea776d89">ociApiRequest</a> (char *<a class="el" href="structoci_api_request.html#a9eba2f324a78303c128322b1c319545c">host</a>, char *<a class="el" href="structoci_api_request.html#acd7e286e96bf2ff72c4f34410d989833">path</a>, const char *<a class="el" href="structoci_api_request.html#a8055c26f7f9ae5a6a21eb72315364b1d">requestMethod</a>, <a class="el" href="structheader.html">Header</a> *<a class="el" href="structoci_api_request.html#a88652c45be18974ac4c4030590d1826a">requestHeaders</a>={}, int <a class="el" href="structoci_api_request.html#aa4d816f382d78f80e786954aad5ea4b8">requestHeaderCount</a>=0, char *<a class="el" href="structoci_api_request.html#aa6e2078739b660e07570b5c940631afd">endpointCert</a>=NULL, char *<a class="el" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a>=&quot;&quot;, char *<a class="el" href="structoci_api_request.html#a97cbaa9c9401bb62f4aaeb2681e49d9d">contentType</a>=&quot;application/json&quot;)</td></tr>
+<tr class="memdesc:a02c38dfbdf81b7edba107f9bea776d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">An OCI API request.  <a href="structoci_api_request.html#a02c38dfbdf81b7edba107f9bea776d89">More...</a><br /></td></tr>
+<tr class="separator:a02c38dfbdf81b7edba107f9bea776d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -100,7 +100,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="st
 <tr class="memdesc:aa6e2078739b660e07570b5c940631afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The text value of the Root CA cert for the API endpoint. Used to make secure connections. For examp, run <code>openssl s_client -connect objectstorage.us-phoenix-1.oraclecloud.com:443 -showcerts</code> and find the value of the Root CA Cert. <br /></td></tr>
 <tr class="separator:aa6e2078739b660e07570b5c940631afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa19f950be32e7910bd095dffef39960a"><td class="memItemLeft" align="right" valign="top"><a id="aa19f950be32e7910bd095dffef39960a"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a> = NULL</td></tr>
+char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoci_api_request.html#aa19f950be32e7910bd095dffef39960a">content</a> = &quot;&quot;</td></tr>
 <tr class="memdesc:aa19f950be32e7910bd095dffef39960a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The body to be passed to the API call. <br /></td></tr>
 <tr class="separator:aa19f950be32e7910bd095dffef39960a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97cbaa9c9401bb62f4aaeb2681e49d9d"><td class="memItemLeft" align="right" valign="top"><a id="a97cbaa9c9401bb62f4aaeb2681e49d9d"></a>
@@ -119,8 +119,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struc
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A request contains all of the information required to make a call to the OCI API. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8de207237699592718d16272eafbb699"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8de207237699592718d16272eafbb699">&#9670;&nbsp;</a></span>ociApiRequest()</h2>
+<a id="a02c38dfbdf81b7edba107f9bea776d89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c38dfbdf81b7edba107f9bea776d89">&#9670;&nbsp;</a></span>ociApiRequest()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,7 +168,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struc
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>content</em> = <code>NULL</code>, </td>
+          <td class="paramname"><em>content</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
