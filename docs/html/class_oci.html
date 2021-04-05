@@ -80,33 +80,36 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a01d58879e778e166e6a2174f63c87ad6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a01d58879e778e166e6a2174f63c87ad6">Oci</a> (<a class="el" href="structoci_profile.html">OciProfile</a> profile, char *timeServer=&quot;pool.ntp.org&quot;, long gmtOffsetSeconds=0, int daylightOffsetSeconds=0)</td></tr>
 <tr class="memdesc:a01d58879e778e166e6a2174f63c87ad6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new instance of the OCI API.  <a href="class_oci.html#a01d58879e778e166e6a2174f63c87ad6">More...</a><br /></td></tr>
 <tr class="separator:a01d58879e778e166e6a2174f63c87ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f87f6f8387296eef2b581f849b6a14a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a3f87f6f8387296eef2b581f849b6a14a">encryptAndEncode</a> (const unsigned char *toEncrypt, unsigned char(&amp;encoded)[1024])</td></tr>
-<tr class="memdesc:a3f87f6f8387296eef2b581f849b6a14a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used internally to hash, sign and base64 encode the auth header to sign the request.  <a href="class_oci.html#a3f87f6f8387296eef2b581f849b6a14a">More...</a><br /></td></tr>
-<tr class="separator:a3f87f6f8387296eef2b581f849b6a14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79e4fd71deca37a90a704e49ca4f3957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a79e4fd71deca37a90a704e49ca4f3957">encryptAndEncode</a> (const unsigned char *toEncrypt, unsigned char(&amp;encoded)[500])</td></tr>
+<tr class="memdesc:a79e4fd71deca37a90a704e49ca4f3957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used internally to hash, sign and base64 encode the auth header to sign the request.  <a href="class_oci.html#a79e4fd71deca37a90a704e49ca4f3957">More...</a><br /></td></tr>
+<tr class="separator:a79e4fd71deca37a90a704e49ca4f3957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88578801fcc66af56200c299eafb0c19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a88578801fcc66af56200c299eafb0c19">apiCall</a> (<a class="el" href="structoci_api_request.html">OciApiRequest</a> request, <a class="el" href="structoci_api_response.html">OciApiResponse</a> &amp;response)</td></tr>
 <tr class="memdesc:a88578801fcc66af56200c299eafb0c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a call to the OCI REST API.  <a href="class_oci.html#a88578801fcc66af56200c299eafb0c19">More...</a><br /></td></tr>
 <tr class="separator:a88578801fcc66af56200c299eafb0c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a5227e740d4995c3f4f679d4743323841"><td class="memItemLeft" align="right" valign="top"><a id="a5227e740d4995c3f4f679d4743323841"></a>
+WiFiClientSecure&#160;</td><td class="memItemRight" valign="bottom"><b>client</b></td></tr>
+<tr class="separator:a5227e740d4995c3f4f679d4743323841"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8270b3d929a1f0e48e3bbce3289256a"><td class="memItemLeft" align="right" valign="top"><a id="ad8270b3d929a1f0e48e3bbce3289256a"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#ad8270b3d929a1f0e48e3bbce3289256a">HTTP_METHOD_GET</a> = &quot;get&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#ad8270b3d929a1f0e48e3bbce3289256a">HTTP_METHOD_GET</a> = &quot;GET&quot;</td></tr>
 <tr class="memdesc:ad8270b3d929a1f0e48e3bbce3289256a"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP GET. <br /></td></tr>
 <tr class="separator:ad8270b3d929a1f0e48e3bbce3289256a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c9053e0d5044cc07c2adc626f4a66e8"><td class="memItemLeft" align="right" valign="top"><a id="a5c9053e0d5044cc07c2adc626f4a66e8"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a5c9053e0d5044cc07c2adc626f4a66e8">HTTP_METHOD_POST</a> = &quot;post&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a5c9053e0d5044cc07c2adc626f4a66e8">HTTP_METHOD_POST</a> = &quot;POST&quot;</td></tr>
 <tr class="memdesc:a5c9053e0d5044cc07c2adc626f4a66e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP POST. <br /></td></tr>
 <tr class="separator:a5c9053e0d5044cc07c2adc626f4a66e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70ef307ee29bcce441a957ac8ba9146e"><td class="memItemLeft" align="right" valign="top"><a id="a70ef307ee29bcce441a957ac8ba9146e"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a70ef307ee29bcce441a957ac8ba9146e">HTTP_METHOD_PUT</a> = &quot;put&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a70ef307ee29bcce441a957ac8ba9146e">HTTP_METHOD_PUT</a> = &quot;PUT&quot;</td></tr>
 <tr class="memdesc:a70ef307ee29bcce441a957ac8ba9146e"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP PUT. <br /></td></tr>
 <tr class="separator:a70ef307ee29bcce441a957ac8ba9146e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc439439ecb0e4b71df06d944d495f48"><td class="memItemLeft" align="right" valign="top"><a id="afc439439ecb0e4b71df06d944d495f48"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#afc439439ecb0e4b71df06d944d495f48">HTTP_METHOD_PATCH</a> = &quot;patch&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#afc439439ecb0e4b71df06d944d495f48">HTTP_METHOD_PATCH</a> = &quot;PATCH&quot;</td></tr>
 <tr class="memdesc:afc439439ecb0e4b71df06d944d495f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP PATCH. <br /></td></tr>
 <tr class="separator:afc439439ecb0e4b71df06d944d495f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b9ad68082d42651d701d6e0b988b6d2"><td class="memItemLeft" align="right" valign="top"><a id="a2b9ad68082d42651d701d6e0b988b6d2"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a2b9ad68082d42651d701d6e0b988b6d2">HTTP_METHOD_DELETE</a> = &quot;delete&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_oci.html#a2b9ad68082d42651d701d6e0b988b6d2">HTTP_METHOD_DELETE</a> = &quot;DELETE&quot;</td></tr>
 <tr class="memdesc:a2b9ad68082d42651d701d6e0b988b6d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP DELETE. <br /></td></tr>
 <tr class="separator:a2b9ad68082d42651d701d6e0b988b6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86a7517c873051b69cb3073ba53a7e03"><td class="memItemLeft" align="right" valign="top"><a id="a86a7517c873051b69cb3073ba53a7e03"></a>
@@ -234,8 +237,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 </div>
 </div>
-<a id="a3f87f6f8387296eef2b581f849b6a14a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f87f6f8387296eef2b581f849b6a14a">&#9670;&nbsp;</a></span>encryptAndEncode()</h2>
+<a id="a79e4fd71deca37a90a704e49ca4f3957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79e4fd71deca37a90a704e49ca4f3957">&#9670;&nbsp;</a></span>encryptAndEncode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +256,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned char(&amp;)&#160;</td>
-          <td class="paramname"><em>encoded</em>[1024]&#160;</td>
+          <td class="paramname"><em>encoded</em>[500]&#160;</td>
         </tr>
         <tr>
           <td></td>

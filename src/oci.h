@@ -51,7 +51,7 @@ struct ociApiRequest {
   char* path; //!< The path. Ex: "/n/"
   const char* requestMethod; //!< The HTTP method. See Oci for `const` values.
   char* endpointCert=NULL; //!< The text value of the Root CA cert for the API endpoint. Used to make secure connections. For examp, run `openssl s_client -connect objectstorage.us-phoenix-1.oraclecloud.com:443 -showcerts` and find the value of the Root CA Cert.
-  char* content = NULL; //!< The body to be passed to the API call.
+  char* content = ""; //!< The body to be passed to the API call.
   char* contentType="application/json"; //!< The content type. 
   Header* requestHeaders; //!< An array of Header objects (set both key and value)
   int requestHeaderCount; //!< The count of headers in the requestHeaders array 
