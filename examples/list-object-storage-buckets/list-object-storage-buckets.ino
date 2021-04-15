@@ -59,6 +59,7 @@ void listBuckets() {
 
   if( listBucketsResponse.statusCode == 200 ) {
     Serial.println("List Buckets Response:");
+    Serial.println(listBucketsResponse.response);
   }
   else {
     Serial.println(listBucketsResponse.errorMsg);
