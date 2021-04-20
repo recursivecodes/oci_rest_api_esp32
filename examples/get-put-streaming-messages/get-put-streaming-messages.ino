@@ -1,5 +1,6 @@
-#include "creds.h"
 #include "oci.h"
+#include "ArduinoJson.h"
+#include "mbedtls/base64.h"
 
 /* enter ssid and pass */
 const char ssid[] = "";

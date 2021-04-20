@@ -1,4 +1,3 @@
-#include "creds.h"
 #include "oci.h"
 
 /* enter ssid and pass */
